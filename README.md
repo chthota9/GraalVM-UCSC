@@ -1,4 +1,4 @@
-# GraalVM
+# GraalVM-UCSC
 
 [![https://graalvm.slack.com](https://img.shields.io/badge/slack-join%20channel-active)](https://www.graalvm.org/slack-invitation/)
 
