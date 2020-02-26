@@ -49,6 +49,7 @@ import java.util.stream.Collectors;
 import org.graalvm.compiler.nodes.CallTargetNode.InvokeKind;
 import org.graalvm.compiler.nodes.FrameState;
 
+import com.oracle.graal.pointsto.json.JSONObject;
 import com.oracle.graal.pointsto.BigBang;
 import com.oracle.graal.pointsto.flow.InvokeTypeFlow;
 import com.oracle.graal.pointsto.meta.AnalysisMethod;
@@ -243,6 +244,12 @@ public final class CallTreePrinter {
             if (invoke.kind == InvokeKind.Static || invoke.kind == InvokeKind.Special) {
                 if (invoke.callees.size() > 0) {
                     Node calleeNode = invoke.callees.get(0);
+                    if(calleeNode.format().indexOf(".main") != -1){
+                        System.out.println(calleeNode.format());
+                        JSONObject j = new JSONObject();
+                        j.put("Current", calleeNode.format());
+                        System.out.println(j.toString());
+                    }
                     out.format("%s%s%s %s @bci=%s %n", prefix, (lastInvoke ? LAST_CHILD : CHILD),
                                     "directly calls", calleeNode.format(), invoke.formatLocation());
                     if (calleeNode instanceof MethodNode) {
