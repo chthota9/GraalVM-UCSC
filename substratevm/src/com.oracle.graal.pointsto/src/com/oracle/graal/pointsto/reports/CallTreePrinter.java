@@ -71,9 +71,14 @@ public final class CallTreePrinter {
                         writer -> printer.printClasses(writer, false));
         ReportUtils.report("list of used packages", path + File.separatorChar + "reports", "used_packages_" + reportName, "txt",
                         writer -> printer.printClasses(writer, true));
+        /*
+        CODE WRITTEN BY MICHAEL HSIEH AND CHERRY THOTA
+        */
         ReportUtils.report("call tree JSON format", path + File.separatorChar + "reports", "call_tree_JSON" + reportName, "json",
                         writer -> printer.printMethodsJSON(writer));
-
+        /*
+        CODE WRITTEN BY MICHAEL HSIEH AND CHERRY THOTA
+        */
     }
 
     interface Node {
@@ -269,44 +274,21 @@ public final class CallTreePrinter {
             }
         }
     }
-    private void printMethodsJSON(PrintWriter out) {
-        
-        JSONArray obj = new JSONArray();
-        JSONObject jo = new JSONObject();
-        obj.put("Current Node");
+
+    /*
+    CODE WRITTEN BY MICHAEL HSIEH AND CHERRY THOTA
+    */
+    private void printMethodsJSON(PrintWriter out) {    // Iterators through the end points
         Iterator<MethodNode> iterator = methodToNode.values().stream().filter(n -> n.isEntryPoint).iterator();
         while(iterator.hasNext()) {
             MethodNode node = iterator.next();
             boolean lastEntryPoint = !iterator.hasNext();
 
-           // jo.put("Node", node.format());
-           // obj.put(jo);
-           // out.println(obj);
             printCallTreeNodeJSON(out, lastEntryPoint ? EMPTY_INDENT : CONNECTING_INDENT, node);
         }
-        // while (iterator.hasNext()) {
-        //     MethodNode node = iterator.next();
-        //     boolean lastEntryPoint = !iterator.hasNext();
-        //     out.format("%s%s %s %n", lastEntryPoint ? LAST_CHILD : CHILD, "entry", node.format());
-        //     printCallTreeNode(out, lastEntryPoint ? EMPTY_INDENT : CONNECTING_INDENT, node);
-        // }
-       
-        // JSONObject obj = new JSONObject();
-        // obj.put("Name", "Crunchify.com");
-        // obj.put("Author", "App Shah");
- 
-        // JSONArray company = new JSONArray();
-        // company.put("Company: Facebook");
-        // company.put("Company: PayPal");
-        // company.put("Company: Google");
-        // obj.put("Company List", company);
-
-        // out.println(obj);
-
-        
     }
 
-    private static void printCallTreeNodeJSON(PrintWriter out, String prefix, MethodNode node) {
+    private static void printCallTreeNodeJSON(PrintWriter out, String prefix, MethodNode node) { // Iteratates through the function calls and returns after finding .main
 
         for (int invokeIdx = 0; invokeIdx < node.invokes.size(); invokeIdx++) {
             InvokeNode invoke = node.invokes.get(invokeIdx);
@@ -315,37 +297,18 @@ public final class CallTreePrinter {
                 if (invoke.callees.size() > 0) {
                     Node calleeNode = invoke.callees.get(0);
                     if(calleeNode.format().indexOf(".main") != -1){
-                      //  System.out.println(calleeNode.format());
-                        JSONArray obj = new JSONArray();
-                        JSONObject jo = new JSONObject();
-                        obj.put("Current Node");
-                        jo.put("Node", calleeNode.format());
-                        obj.put(jo);
-                        out.println(obj);
-                      //  System.out.println(j.toString());
+                        JSONArray j = CreateCallTreeNodeJSON(prefix, node, calleeNode.format());
+                        out.println(j);
+                        return;
                     }
-                  //  out.format("%s%s%s %s @bci=%s %n", prefix, (lastInvoke ? LAST_CHILD : CHILD),
-                                 //   "directly calls", calleeNode.format(), invoke.formatLocation());
-                    if (calleeNode instanceof MethodNode ) {
+                    if (calleeNode instanceof MethodNode) {
                         printCallTreeNodeJSON(out, prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT), (MethodNode) calleeNode);
                     }
                 }
             } else if (invoke.kind == InvokeKind.Virtual || invoke.kind == InvokeKind.Interface) {
-                
-            //    out.format("%s%s%s %s @bci=%s%n", prefix, (lastInvoke ? LAST_CHILD : CHILD),
-            //                     invoke.kind == InvokeKind.Virtual ? "virtually calls" : "interfacially calls",
-            //                     invoke.formatTarget(), invoke.formatLocation());
-                // JSONArray obj2 = new JSONArray();
-                // JSONObject jo2 = new JSONObject();
-                // obj2.put("Virtuall Calls Node");
-                // jo2.put("Node", invoke.formatTarget());
-                // obj2.put(jo2);
-                // out.println(obj2);
                 for (int calleeIdx = 0; calleeIdx < invoke.callees.size(); calleeIdx++) {
                     boolean lastCallee = calleeIdx == invoke.callees.size() - 1;
                     Node calleeNode = invoke.callees.get(calleeIdx);
-                //    out.format("%s%s%s %s %n", prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT), (lastCallee ? LAST_CHILD : CHILD),
-                //                     invoke.kind == InvokeKind.Virtual ? "is overridden by" : "is implemented by", calleeNode.format());
                     if (calleeNode instanceof MethodNode) {
                         printCallTreeNodeJSON(out, prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT) + (lastCallee ? EMPTY_INDENT : CONNECTING_INDENT), (MethodNode) calleeNode);
                     }
@@ -354,6 +317,52 @@ public final class CallTreePrinter {
         }
     }
 
+    private static JSONArray CreateCallTreeNodeJSON(String prefix, MethodNode node, String root) {  // Creates a JSON object starting from .main until the rest of .main's children are reached
+
+        JSONArray jsonNodes = new JSONArray();
+        for (int invokeIdx = 0; invokeIdx < node.invokes.size(); invokeIdx++) {
+            JSONObject jsonObj = new JSONObject();
+            InvokeNode invoke = node.invokes.get(invokeIdx);
+            boolean lastInvoke = invokeIdx == node.invokes.size() - 1;
+            if (invoke.kind == InvokeKind.Static || invoke.kind == InvokeKind.Special) {
+                if (invoke.callees.size() > 0) {
+                    Node calleeNode = invoke.callees.get(0);
+                    if (calleeNode instanceof MethodNode ) {
+                        jsonObj.put("children", CreateCallTreeNodeJSON(prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT), (MethodNode) calleeNode, ""));
+                    }else{
+                        JSONArray emptyJSON = new JSONArray();
+                        jsonObj.put("children", emptyJSON);
+                    }
+                    jsonObj.put("Node", calleeNode.format());
+                }
+            } else if (invoke.kind == InvokeKind.Virtual || invoke.kind == InvokeKind.Interface) {
+                JSONArray childrenNodes = new JSONArray();
+                jsonObj.put("children", childrenNodes);
+                for (int calleeIdx = 0; calleeIdx < invoke.callees.size(); calleeIdx++) {
+                    boolean lastCallee = calleeIdx == invoke.callees.size() - 1;
+                    Node calleeNode = invoke.callees.get(calleeIdx);
+                    JSONObject overriddenNodes = new JSONObject();
+                    overriddenNodes.put("Node", calleeNode.format());
+                    if (calleeNode instanceof MethodNode) {
+                        overriddenNodes.put("children", CreateCallTreeNodeJSON(prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT) + (lastCallee ? EMPTY_INDENT : CONNECTING_INDENT), (MethodNode) calleeNode, ""));
+                    }else{
+                        JSONArray emptyJSON = new JSONArray();
+                        overriddenNodes.put("children", emptyJSON);
+                    }
+                    childrenNodes.put(overriddenNodes);
+                }
+                jsonObj.put("Node", invoke.formatTarget());
+            }
+            jsonNodes.put(jsonObj);
+            if(root.indexOf(".main") != -1){
+                return jsonNodes;
+            }
+        }
+        return jsonNodes;
+    }
+    /*
+    CODE WRITTEN BY MICHAEL HSIEH AND CHERRY THOTA
+    */
 
     private void printUsedMethods(PrintWriter out) {
         List<String> methodsList = new ArrayList<>();
