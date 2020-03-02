@@ -18,8 +18,8 @@
 
     <actions>
         <group id = "actionPackage.HelloWorld" text = "MyAction" description = "testing an action">
-            <add-to-group group-id="MainMenu" anchor = "last" />
-            <action class = "actionPackage.HelloWorld" id = "actionPackage.Actions.HelloWorld" text = "says Hello"/>
+            <add-to-group group-id="EditorPopupMenu" anchor = "last" />
+            <action class = "actionJavaPackage.HelloWorld" id = "actionPackage.Actions.HelloWorld" text = "says Hello"/>
         </group>
     </actions>
 </idea-plugin>
