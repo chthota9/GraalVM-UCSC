@@ -271,18 +271,22 @@ public final class CallTreePrinter {
     }
     private void printMethodsJSON(PrintWriter out) {
         
-        JSONArray obj = new JSONArray();
-        JSONObject jo = new JSONObject();
-        obj.put("Current Node");
+        //JSONArray obj = new JSONArray();
+        //JSONObject jo = new JSONObject();
+       // obj.put("Current Node");
         Iterator<MethodNode> iterator = methodToNode.values().stream().filter(n -> n.isEntryPoint).iterator();
         while(iterator.hasNext()) {
+            JSONObject jo = new JSONObject();
+            JSONArray array = new JSONArray();
+            JSONArray obj = new JSONArray();
             MethodNode node = iterator.next();
             boolean lastEntryPoint = !iterator.hasNext();
-
-            jo.put("Entry Node", node.format());
-            obj.put(jo);
-            out.println(obj);
-            printCallTreeNodeJSON(out, lastEntryPoint ? EMPTY_INDENT : CONNECTING_INDENT, node);
+            jo.put("id", node.id);
+            jo.put("Entry Node Name", node.method.getWrapped());
+            array.put(node.method.getParameters());
+            jo.put("Arguments", array);
+            printCallTreeNodeJSON(out, lastEntryPoint ? EMPTY_INDENT : CONNECTING_INDENT, node, jo, obj);
+            out.println(jo);
         }
         // while (iterator.hasNext()) {
         //     MethodNode node = iterator.next();
@@ -306,36 +310,25 @@ public final class CallTreePrinter {
         
     }
 
-    private static void printCallTreeNodeJSON(PrintWriter out, String prefix, MethodNode node) {
+    private static void printCallTreeNodeJSON(PrintWriter out, String prefix, MethodNode node, JSONObject jo, JSONArray obj) {
 
         for (int invokeIdx = 0; invokeIdx < node.invokes.size(); invokeIdx++) {
             InvokeNode invoke = node.invokes.get(invokeIdx);
             boolean lastInvoke = invokeIdx == node.invokes.size() - 1;
             if (invoke.kind == InvokeKind.Static || invoke.kind == InvokeKind.Special) {
                 if (invoke.callees.size() > 0) {
-
                     Node calleeNode = invoke.callees.get(0);
-                    if(calleeNode.format().indexOf(".main") != -1){
-                      //  System.out.println(calleeNode.format());
-                        JSONArray obj = new JSONArray();
-                        JSONObject jo = new JSONObject();
-                        obj.put("Current Node");
-                        jo.put("Main Node", calleeNode.format());
-                        obj.put(jo);
-                        out.println(obj);
-                      //  System.out.println(j.toString());
-                    }
+
                   //  out.format("%s%s%s %s @bci=%s %n", prefix, (lastInvoke ? LAST_CHILD : CHILD),
                                  //   "directly calls", calleeNode.format(), invoke.formatLocation());
 
-                        JSONArray obj4 = new JSONArray();
-                        JSONObject jo4 = new JSONObject();
-                        obj4.put("Current Node");
-                        jo4.put("Direct Node", calleeNode.format());
-                        obj4.put(jo4);
-                        out.println(obj4);
+                        // JSONArray obj1 = new JSONArray();
+                        obj.put(calleeNode.format());
+                        jo.put("Invokes Direct Node", obj);
+                        //out.println(jo);
+                        
                     if (calleeNode instanceof MethodNode) {
-                        printCallTreeNodeJSON(out, prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT), (MethodNode) calleeNode);
+                        printCallTreeNodeJSON(out, prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT), (MethodNode) calleeNode, jo, obj);
                     }
                 }
             } else if (invoke.kind == InvokeKind.Virtual || invoke.kind == InvokeKind.Interface) {
@@ -343,25 +336,23 @@ public final class CallTreePrinter {
             //    out.format("%s%s%s %s @bci=%s%n", prefix, (lastInvoke ? LAST_CHILD : CHILD),
             //                     invoke.kind == InvokeKind.Virtual ? "virtually calls" : "interfacially calls",
             //                     invoke.formatTarget(), invoke.formatLocation());
-                JSONArray obj2 = new JSONArray();
-                JSONObject jo2 = new JSONObject();
-                obj2.put("Virtuall Calls Node");
-                jo2.put("Node", invoke.formatTarget());
-                obj2.put(jo2);
-                out.println(obj2);
+            // JSONArray obj2 = new JSONArray();
+                // obj.put(invoke.formatTarget());
+                // jo.put("Invokes Virtual Node", obj);
+            // out.println(jo);
+                
                 for (int calleeIdx = 0; calleeIdx < invoke.callees.size(); calleeIdx++) {
                     boolean lastCallee = calleeIdx == invoke.callees.size() - 1;
                     Node calleeNode = invoke.callees.get(calleeIdx);
-                    JSONArray obj3 = new JSONArray();
-                    JSONObject jo3 = new JSONObject();
-                    obj3.put("Overidden Node");
-                    jo3.put("Node", calleeNode.format());
-                    obj3.put(jo3);
-                    out.println(obj3);
+                    // JSONArray obj3 = new JSONArray();
+                    // obj.put(calleeNode.format());
+                    // jo.put("Invokes Overridden Node", obj);
+                    // out.println(jo);
+                
                 //    out.format("%s%s%s %s %n", prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT), (lastCallee ? LAST_CHILD : CHILD),
                 //                     invoke.kind == InvokeKind.Virtual ? "is overridden by" : "is implemented by", calleeNode.format());
                     if (calleeNode instanceof MethodNode) {
-                        printCallTreeNodeJSON(out, prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT) + (lastCallee ? EMPTY_INDENT : CONNECTING_INDENT), (MethodNode) calleeNode);
+                        printCallTreeNodeJSON(out, prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT) + (lastCallee ? EMPTY_INDENT : CONNECTING_INDENT), (MethodNode) calleeNode, jo, obj);
                     }
                 }
             }
