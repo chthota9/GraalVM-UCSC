@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3f64b194-cb32-44f1-8c4c-49d4b1e714e2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1XsLDDVjyytRm7JAhqSjVOhO20Y" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Plugin" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":runIde" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3f64b194-cb32-44f1-8c4c-49d4b1e714e2" name="Default Changelist" comment="" />
+      <created>1581829733448</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581829733448</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="440" y="202" key="#Project_Structure" timestamp="1582598466477">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="440" y="183" key="#Project_Structure/0.0.1680.1050@0.0.1680.1050" timestamp="1582168401944" />
+    <state x="440" y="202" key="#Project_Structure/0.23.1680.1027@0.23.1680.1027" timestamp="1582598466477" />
+    <state width="1358" height="267" key="GridCell.Tab.0.bottom" timestamp="1582660001630">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1358" height="267" key="GridCell.Tab.0.bottom/-2560.-686.2560.1417/0.23.1680.1027@-2560.-686.2560.1417" timestamp="1582270860043" />
+    <state width="1358" height="267" key="GridCell.Tab.0.bottom/-2560.-686.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1582065045663" />
+    <state width="1358" height="267" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1582660001630" />
+    <state width="1358" height="267" key="GridCell.Tab.0.center" timestamp="1582660001629">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1358" height="267" key="GridCell.Tab.0.center/-2560.-686.2560.1417/0.23.1680.1027@-2560.-686.2560.1417" timestamp="1582270860042" />
+    <state width="1358" height="267" key="GridCell.Tab.0.center/-2560.-686.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1582065045662" />
+    <state width="1358" height="267" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1582660001629" />
+    <state width="1358" height="267" key="GridCell.Tab.0.left" timestamp="1582660001629">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1358" height="267" key="GridCell.Tab.0.left/-2560.-686.2560.1417/0.23.1680.1027@-2560.-686.2560.1417" timestamp="1582270860042" />
+    <state width="1358" height="267" key="GridCell.Tab.0.left/-2560.-686.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1582065045662" />
+    <state width="1358" height="267" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1582660001629" />
+    <state width="1358" height="267" key="GridCell.Tab.0.right" timestamp="1582660001630">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1358" height="267" key="GridCell.Tab.0.right/-2560.-686.2560.1417/0.23.1680.1027@-2560.-686.2560.1417" timestamp="1582270860043" />
+    <state width="1358" height="267" key="GridCell.Tab.0.right/-2560.-686.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1582065045663" />
+    <state width="1358" height="267" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1582660001630" />
+    <state x="519" y="369" key="com.intellij.ide.util.TipDialog" timestamp="1582597719981">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="519" y="369" key="com.intellij.ide.util.TipDialog/-2560.-686.2560.1417/0.23.1680.1027@0.23.1680.1027" timestamp="1582065776006" />
+    <state x="519" y="369" key="com.intellij.ide.util.TipDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1582597719981" />
+    <state x="94" y="130" key="new project wizard" timestamp="1582306277878">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="94" y="130" key="new project wizard/0.23.1680.1027@0.23.1680.1027" timestamp="1582306277878" />
+  </component>
+</project>
