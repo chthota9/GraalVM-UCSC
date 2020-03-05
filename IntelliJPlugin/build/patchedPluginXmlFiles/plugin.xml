@@ -12,7 +12,9 @@
     &lt;em&gt;most HTML tags may be used&lt;/em&gt;
     </description>
   <depends>com.intellij.modules.platform</depends>
-  <extensions defaultExtensionNs="com.intellij"/>
+  <extensions defaultExtensionNs="com.intellij">
+    <toolWindow id="My Sample Tool Window" anchor="right" factoryClass="actionJavaPackage.Factory"/>
+  </extensions>
   <actions>
     <group id="actionPackage.HelloWorld" text="MyAction" description="testing an action">
       <add-to-group group-id="EditorPopupMenu" anchor="last"/>

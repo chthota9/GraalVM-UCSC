@@ -30,7 +30,7 @@ class HelloWorld extends AnAction {
         Editor editor = e.getData(PlatformDataKeys.EDITOR);
         String text = "";
 
-        /*Class openClass;
+        /*Class openClass = JFrame.class;
         Method [] listMethods = openClass.getDeclaredMethods();
         for (Method m: listMethods){
             System.out.printf("%s\n", m);
@@ -41,7 +41,7 @@ class HelloWorld extends AnAction {
         text = editor.getSelectionModel().getSelectedText();
         JFrame newWindow = new JFrame ("Frame");
         newWindow.setSize(300,300);
-        newWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        newWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JLabel textLabel = new JLabel (text, JLabel.CENTER);
         newWindow.getContentPane().add (textLabel, JLabel.CENTER);
 
