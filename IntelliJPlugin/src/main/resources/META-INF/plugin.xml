@@ -1,26 +1,31 @@
-  <idea-plugin>
-    <id>org.example.TestPlugin</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+<idea-plugin>
+    <id>org.example.Call Trace Plugin</id>
+    <name>Call Trace </name>
+    <vendor email="support.com" url="http://www..com"></vendor>
 
-    <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
-    ]]></description>
+    <description>
+        Plugin that shows call trace using graalvm calltrace.
+    </description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow id="My Sample Tool Window"  anchor="right" factoryClass="actionJavaPackage.Factory"/>
+        <toolWindow id="Call Tree Visualization"  anchor="right" factoryClass="ActionPackage.Factory"/>
         <!-- Add your extensions here -->
     </extensions>
 
     <actions>
-        <group id = "actionPackage.HelloWorld" text = "MyAction" description = "testing an action">
+        <group id = "actionPackage.HelloWorld" text = "MyAction" description = "Open call trace visualization">
             <add-to-group group-id="EditorPopupMenu" anchor = "last" />
-            <action class = "actionJavaPackage.HelloWorld" id = "actionPackage.Actions.HelloWorld" text = "says Hello"/>
+            <action class = "ActionPackage.HelloWorld" id = "actionPackage.Actions.HelloWorld" text = "Display Call Trace Visualization"/>
         </group>
+        <group id = "actionPackage.OpenSourceCode" text = "DisplaySrc" description = "testing an action">
+            <add-to-group group-id="EditorPopupMenu" anchor = "last" />
+            <action class = "ActionPackage.OpenSourceCode" id = "actionPackage.Actions.OpenSourceCode" text = "Display Source Code"/>
+        </group>
+
+        <!-- Add your actions here -->
     </actions>
 </idea-plugin>
