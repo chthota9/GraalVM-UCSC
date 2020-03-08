@@ -1,4 +1,4 @@
-package actionJavaPackage;
+package ActionPackage;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -12,6 +12,7 @@ import com.intellij.openapi.fileEditor.ex.FileEditorManagerEx;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.openapi.wm.ToolWindowEP;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
@@ -29,15 +30,6 @@ class HelloWorld extends AnAction {
     public void actionPerformed(AnActionEvent e) {
         Editor editor = e.getData(PlatformDataKeys.EDITOR);
         String text = "";
-
-        /*Class openClass = JFrame.class;
-        Method [] listMethods = openClass.getDeclaredMethods();
-        for (Method m: listMethods){
-            System.out.printf("%s\n", m);
-        }*/
-
-
-
         text = editor.getSelectionModel().getSelectedText();
         JFrame newWindow = new JFrame ("Frame");
         newWindow.setSize(300,300);
@@ -47,18 +39,8 @@ class HelloWorld extends AnAction {
 
         newWindow.setVisible(true);
 
-
-        // get the project
         Project project = getEventProject(e);
+        ToolWindowManager.getInstance(project).getToolWindow("Call Tree Visualization").show(null);
 
-// get File editor Manager Ex
-        final FileEditorManagerEx fileEditorManagerEx =
-                FileEditorManagerEx.getInstanceEx(project);
-
-// get the editorWindow from File Editor Manager Ex
-        EditorWindow currentWindow = fileEditorManagerEx.getCurrentWindow();
-
-// create a split
-        fileEditorManagerEx.createSplitter(0, currentWindow);
     }
 }
