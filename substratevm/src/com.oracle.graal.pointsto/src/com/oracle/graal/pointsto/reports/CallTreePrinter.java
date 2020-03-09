@@ -269,95 +269,36 @@ public final class CallTreePrinter {
             }
         }
     }
-    private void printMethodsJSON(PrintWriter out) {
 
-        //JSONArray obj = new JSONArray();
-        //JSONObject jo = new JSONObject();
-        // obj.put("Current Node");
-        Iterator<MethodNode> iterator = methodToNode.values().stream().filter(n -> n.isEntryPoint).iterator();
-        while(iterator.hasNext()) {
-            JSONObject jo = new JSONObject();
-            JSONArray array = new JSONArray();
-            JSONArray obj = new JSONArray();
-            MethodNode node = iterator.next();
-            boolean lastEntryPoint = !iterator.hasNext();
-            jo.put("id", node.id);
-            jo.put("Entry Node Name", node.method.getWrapped());
-            array.put(node.method.getParameters());
-            jo.put("Arguments", array);
-            printCallTreeNodeJSON(out, lastEntryPoint ? EMPTY_INDENT : CONNECTING_INDENT, node, jo, obj);
-            out.println(jo);
-        }
-        // while (iterator.hasNext()) {
-        //     MethodNode node = iterator.next();
-        //     boolean lastEntryPoint = !iterator.hasNext();
-        //     out.format("%s%s %s %n", lastEntryPoint ? LAST_CHILD : CHILD, "entry", node.format());
-        //     printCallTreeNode(out, lastEntryPoint ? EMPTY_INDENT : CONNECTING_INDENT, node);
-        // }
-
-        // JSONObject obj = new JSONObject();
-        // obj.put("Name", "Crunchify.com");
-        // obj.put("Author", "App Shah");
-
-        // JSONArray company = new JSONArray();
-        // company.put("Company: Facebook");
-        // company.put("Company: PayPal");
-        // company.put("Company: Google");
-        // obj.put("Company List", company);
-
-        // out.println(obj);
-
-
-    }
-
-    private static void printCallTreeNodeJSON(PrintWriter out, String prefix, MethodNode node, JSONObject jo, JSONArray obj) {
-
-        for (int invokeIdx = 0; invokeIdx < node.invokes.size(); invokeIdx++) {
-            InvokeNode invoke = node.invokes.get(invokeIdx);
-            boolean lastInvoke = invokeIdx == node.invokes.size() - 1;
-            if (invoke.kind == InvokeKind.Static || invoke.kind == InvokeKind.Special) {
-                if (invoke.callees.size() > 0) {
-                    Node calleeNode = invoke.callees.get(0);
-
-                    //  out.format("%s%s%s %s @bci=%s %n", prefix, (lastInvoke ? LAST_CHILD : CHILD),
-                    //   "directly calls", calleeNode.format(), invoke.formatLocation());
-
-                    // JSONArray obj1 = new JSONArray();
-                    obj.put(calleeNode.format());
-                    jo.put("Invokes Direct Node", obj);
-                    //out.println(jo);
-
-                    if (calleeNode instanceof MethodNode) {
-                        printCallTreeNodeJSON(out, prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT), (MethodNode) calleeNode, jo, obj);
-                    }
+    private void printMethodsJSON(PrintWriter out){
+        JSONArray methodsJSON = new JSONArray();
+        for(AnalysisMethod m : bigbang.getUniverse().getMethods()){
+            JSONObject currentMethod = new JSONObject();
+            currentMethod.put("id", m.getId());
+            currentMethod.put("name", m.getName());
+            currentMethod.put("arguments", m.getParameters());
+            StackTraceElement e = m.asStackTraceElement(0);
+            currentMethod.put("line", e.getLineNumber()-1);
+            currentMethod.put("file", e.getFileName());
+            JSONArray invokesArray = new JSONArray();
+            for(InvokeTypeFlow invoke : m.getTypeFlow().getInvokes()){
+                JSONObject invokedMethod = new JSONObject();
+                FrameState state = invoke.getSource().invoke().stateAfter();
+                StackTraceElement e1 = state.getCode().asStackTraceElement(state.bci);
+                invokedMethod.put("line", e1.getLineNumber());
+                List<Integer> callees = new ArrayList<Integer>();
+                for(AnalysisMethod callee : invoke.getCallees()){
+                    callees.add(callee.getId());
                 }
-            } else if (invoke.kind == InvokeKind.Virtual || invoke.kind == InvokeKind.Interface) {
-
-                //    out.format("%s%s%s %s @bci=%s%n", prefix, (lastInvoke ? LAST_CHILD : CHILD),
-                //                     invoke.kind == InvokeKind.Virtual ? "virtually calls" : "interfacially calls",
-                //                     invoke.formatTarget(), invoke.formatLocation());
-                // JSONArray obj2 = new JSONArray();
-                // obj.put(invoke.formatTarget());
-                // jo.put("Invokes Virtual Node", obj);
-                // out.println(jo);
-
-                for (int calleeIdx = 0; calleeIdx < invoke.callees.size(); calleeIdx++) {
-                    boolean lastCallee = calleeIdx == invoke.callees.size() - 1;
-                    Node calleeNode = invoke.callees.get(calleeIdx);
-                    // JSONArray obj3 = new JSONArray();
-                    // obj.put(calleeNode.format());
-                    // jo.put("Invokes Overridden Node", obj);
-                    // out.println(jo);
-
-                    //    out.format("%s%s%s %s %n", prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT), (lastCallee ? LAST_CHILD : CHILD),
-                    //                     invoke.kind == InvokeKind.Virtual ? "is overridden by" : "is implemented by", calleeNode.format());
-                    if (calleeNode instanceof MethodNode) {
-                        printCallTreeNodeJSON(out, prefix + (lastInvoke ? EMPTY_INDENT : CONNECTING_INDENT) + (lastCallee ? EMPTY_INDENT : CONNECTING_INDENT), (MethodNode) calleeNode, jo, obj);
-                    }
-                }
+                invokedMethod.put("callees", callees);
+                invokesArray.put(invokedMethod);
             }
+            currentMethod.put("invokes", invokesArray);
+            methodsJSON.put(currentMethod);
         }
+        out.println(methodsJSON);
     }
+
 
 
     private void printUsedMethods(PrintWriter out) {
