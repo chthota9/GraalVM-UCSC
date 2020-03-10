@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.lang.reflect.Method;
 
 import org.graalvm.compiler.nodes.CallTargetNode.InvokeKind;
 import org.graalvm.compiler.nodes.FrameState;
@@ -56,6 +57,7 @@ import com.oracle.graal.pointsto.flow.InvokeTypeFlow;
 import com.oracle.graal.pointsto.meta.AnalysisMethod;
 
 import jdk.vm.ci.meta.ResolvedJavaMethod;
+import jdk.vm.ci.meta.JavaMethod;
 
 public final class CallTreePrinter {
 
@@ -277,6 +279,7 @@ public final class CallTreePrinter {
             currentMethod.put("id", m.getId());
             currentMethod.put("name", m.getName());
             currentMethod.put("arguments", m.getParameters());
+            currentMethod.put("return type", m.wrapped.getSignature().getReturnType(null));
             StackTraceElement e = m.asStackTraceElement(0);
             currentMethod.put("line", e.getLineNumber()-1);
             currentMethod.put("file", e.getFileName());
