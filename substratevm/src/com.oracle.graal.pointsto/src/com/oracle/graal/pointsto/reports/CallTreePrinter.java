@@ -272,18 +272,15 @@ public final class CallTreePrinter {
         }
     }
 
+    /*
+    UCSC ONI Code Visualization changes start here
+    */
     private void printMethodsJSON(PrintWriter out){
         JSONArray methodsJSON = new JSONArray();
         for(AnalysisMethod m : bigbang.getUniverse().getMethods()){
             JSONObject currentMethod = new JSONObject();
             currentMethod.put("id", m.getId());
             currentMethod.put("name", m.getName());
-//            int max = m.getSignature().getParameterCount(false);
-//            List<JavaType> arguments = new ArrayList<JavaType>();
-//            for(int i = 0; i < max; i++){
-//                arguments.add(m.getSignature().getParameterType(i, m.getDeclaringClass()));
-//            }
-//            currentMethod.put("arguments", arguments);
             currentMethod.put("arguments", m.getParameters());
             currentMethod.put("return", m.getSignature().getReturnType(null).toJavaName());
             StackTraceElement e = m.asStackTraceElement(0);
@@ -307,7 +304,9 @@ public final class CallTreePrinter {
         }
         out.println(methodsJSON);
     }
-
+    /*
+    UCSC ONI Code Visualization changes end here
+    */
 
 
     private void printUsedMethods(PrintWriter out) {
