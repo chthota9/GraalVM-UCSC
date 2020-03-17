@@ -46,7 +46,7 @@ class MethodCheck extends AnAction {
                 //code for json reader
 
                 JSONParser jsonParser = new JSONParser();
-                String filePath = "/Users/tonykhalilollahi/Documents/GraalVM-UCSC/intellijcalltraceplugin/src/main/java/ActionPackage/example2.json"; //absolute path
+                String filePath = "/Users/tonykhalilollahi/Documents/GraalVM-UCSC/calltraceplugin/src/main/java/ActionPackage/example2.json"; //absolute path
                 //Strings outputted to Toolbar
                 String filename = "JSON not found!";
                 String linenum = "--";
