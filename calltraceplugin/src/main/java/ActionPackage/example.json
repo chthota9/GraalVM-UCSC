@@ -1,0 +1,16 @@
+[
+    {
+      "id" : 1234,
+      "name" : "fully.qualified.method.name",
+      "arguments" : ["first.argument.type", "second.argument.type", "third.argument.type"],
+      "return" : "return.value.type",
+      "file" : "MyClass.java",
+      "line" : 123,
+      "invokes" : [
+        {"line" : 125, "callees" : [ 2468 ]  },
+        {"line" : 125, "callees" : [ 345, 456, 678 ] }
+      ]
+    }
+]
+
+

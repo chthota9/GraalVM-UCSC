@@ -1,0 +1,19 @@
+<conversion>
+  <applied-converters>
+    <converter id="kotlin-non-jvm-source-roots" />
+    <converter id="junit-to-android-junit-configurations" />
+    <converter id="android-sdk-library" />
+    <converter id="android-module-to-java-module" />
+    <converter id="android-proguard-options" />
+  </applied-converters>
+  <project-files>
+    <file path="/Users/gusperson/IdeaProjects/Call Trace Plugin/.idea/vcs.xml" timestamp="1583810683226" />
+    <file path="/Users/gusperson/IdeaProjects/Call Trace Plugin/.idea/misc.xml" timestamp="1583723565555" />
+    <file path="/Users/gusperson/IdeaProjects/Call Trace Plugin/.idea/gradle.xml" timestamp="1583807917843" />
+    <file path="/Users/gusperson/IdeaProjects/Call Trace Plugin/.idea/uiDesigner.xml" timestamp="1583810457084" />
+    <file path="/Users/gusperson/IdeaProjects/Call Trace Plugin/.idea/jarRepositories.xml" timestamp="1583723614132" />
+    <file path="/Users/gusperson/IdeaProjects/Call Trace Plugin/.idea/modules.xml" timestamp="1583809584242" />
+    <file path="/Users/gusperson/IdeaProjects/Call Trace Plugin/.idea/workspace.xml" timestamp="1583986623145" />
+    <file path="/Users/gusperson/IdeaProjects/Call Trace Plugin/.idea/Call Trace Plugin.iml" timestamp="1583809584076" />
+  </project-files>
+</conversion>

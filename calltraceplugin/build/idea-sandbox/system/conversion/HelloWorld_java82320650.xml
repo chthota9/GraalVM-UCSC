@@ -1,0 +1,14 @@
+<conversion>
+  <applied-converters>
+    <converter id="kotlin-non-jvm-source-roots" />
+    <converter id="junit-to-android-junit-configurations" />
+    <converter id="android-sdk-library" />
+    <converter id="android-module-to-java-module" />
+    <converter id="android-proguard-options" />
+  </applied-converters>
+  <project-files>
+    <file path="/private/var/folders/gb/f3w2ryfj5ljgfpbqq7g9plp80000gn/T/HelloWorld.java/.idea/modules.xml" timestamp="1584146291131" />
+    <file path="/private/var/folders/gb/f3w2ryfj5ljgfpbqq7g9plp80000gn/T/HelloWorld.java/.idea/HelloWorld.java.iml" timestamp="1584146291115" />
+    <file path="/private/var/folders/gb/f3w2ryfj5ljgfpbqq7g9plp80000gn/T/HelloWorld.java/.idea/workspace.xml" timestamp="1584146291122" />
+  </project-files>
+</conversion>

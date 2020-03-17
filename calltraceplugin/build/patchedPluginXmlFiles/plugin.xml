@@ -1,0 +1,27 @@
+<idea-plugin>
+  <version>1.0-SNAPSHOT</version>
+  <change-notes>
+      Add change notes here.&lt;br&gt;
+      &lt;em&gt;most HTML tags may be used&lt;/em&gt;</change-notes>
+  <idea-version since-build="193.6494" until-build="193.*"/>
+  <id>org.example.Call Trace Plugin</id>
+  <name>Call Trace </name>
+  <vendor email="support.com" url="http://www..com"/>
+  <description>
+        Plugin that shows call trace using graalvm calltrace.
+    </description>
+  <depends>com.intellij.modules.platform</depends>
+  <extensions defaultExtensionNs="com.intellij">
+    <toolWindow id="Call Tree Visualization" anchor="right" factoryClass="ActionPackage.Factory"/>
+  </extensions>
+  <actions>
+    <group id="actionPackage.HelloWorld" text="MyAction" description="Open call trace visualization">
+      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+      <action class="ActionPackage.MethodCheck" id="actionPackage.Actions.HelloWorld" text="Display Call Trace Visualization"/>
+    </group>
+    <group id="actionPackage.OpenSourceCode" text="DisplaySrc" description="testing an action">
+      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+      <action class="ActionPackage.OpenSourceCode" id="actionPackage.Actions.OpenSourceCode" text="Display Source Code"/>
+    </group>
+  </actions>
+</idea-plugin>
