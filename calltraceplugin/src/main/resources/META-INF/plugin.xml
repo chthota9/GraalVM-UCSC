@@ -17,9 +17,9 @@
     </extensions>
 
     <actions>
-        <group id = "actionPackage.HelloWorld" text = "MyAction" description = "Open call trace visualization">
+        <group id = "actionPackage.MethodCheck" text = "MyAction" description = "Open call trace visualization">
             <add-to-group group-id="EditorPopupMenu" anchor = "last" />
-            <action class = "ActionPackage.MethodCheck" id = "actionPackage.Actions.HelloWorld" text = "Display Call Trace Visualization"/>
+            <action class = "ActionPackage.MethodCheck" id = "actionPackage.Actions.MethodCheck" text = "Display Call Trace Visualization"/>
         </group>
         <group id = "actionPackage.OpenSourceCode" text = "DisplaySrc" description = "testing an action">
             <add-to-group group-id="EditorPopupMenu" anchor = "last" />

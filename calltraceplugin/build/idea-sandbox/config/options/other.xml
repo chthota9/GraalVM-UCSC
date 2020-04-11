@@ -11,7 +11,7 @@
     <property name="lastTip" value="92" />
     <property name="packagesearch.endpoint.url.fulltext" value="https://package-search.services.jetbrains.com/api/search/idea/fulltext" />
     <property name="packagesearch.endpoint.url.suggest" value="https://package-search.services.jetbrains.com/api/search/idea/suggest" />
-    <property name="packagesearch.status.updated.ts" value="1584414010200" />
+    <property name="packagesearch.status.updated.ts" value="1586566196682" />
     <property name="project.wizard.group" value="JAVA_MODULE" />
     <property name="project.wizard.template" value="JavaFX Application" />
     <property name="tasks.pass.word.conversion.enforced" value="true" />

@@ -46,47 +46,22 @@ class MethodCheck extends AnAction {
                 //code for json reader
 
                 JSONParser jsonParser = new JSONParser();
-                String filePath = "/Users/tonykhalilollahi/Documents/GraalVM-UCSC/calltraceplugin/src/main/java/ActionPackage/example2.json"; //absolute path
+                String filePath = "/Users/tonykhalilollahi/Documents/GraalVM-UCSC/substratevm/reports/call_tree_JSONhelloworld_20200309_202957.json"; //absolute path
                 //Strings outputted to Toolbar
                 String filename = "JSON not found!";
                 String linenum = "--";
-                String args = " ";
-                String calleesString = " ";
-                try {
+                String args = "No Arguments";
+                String calleesString = "No Callees";
+                try {//extract info from jsonObject
                     FileReader reader = new FileReader(filePath);
                     Object obj = jsonParser.parse(reader);
                     JSONArray array = (JSONArray) obj;
-                    JSONObject object = (JSONObject) array.get(0);
-                    filename = (String) object.get("file");
-                    int len = array.size();
-                    JSONObject jsonOb = null;
-                    for(int i = 0; i < len; i++){
-                        jsonOb = (JSONObject) array.get(i);
-                        String name = (String) jsonOb.get("name");
-                        if(name.equals(text)){
-                            break;
-                        }
-                    }
-
+                    JSONObject jsonOb = findObject(array, text);
                     filename = (String) jsonOb.get("file");
                     long x = (long) jsonOb.get("line");
                     linenum = Long.toString(x);
-                    JSONArray arguments = (JSONArray) jsonOb.get ("arguments");
-                    for (int i = 0; i < arguments.size(); i++){
-                        args += (arguments.get(i).toString() + "<br>");
-                    }
-                    JSONArray invokes = (JSONArray) jsonOb.get ("invokes");
-                    for (int i = 0; i < invokes.size(); i++){
-                        JSONObject invoked = (JSONObject) invokes.get(i);
-                        calleesString += ("<br>   Line: " + (long) invoked.get ("line"));
-                        JSONArray callees = (JSONArray) invoked.get("callees");
-                        calleesString += ("<br>   Callees: <br>");
-                        for (int j = 0; j < callees.size(); j++){
-                            calleesString += ((long)callees.get(j) + "<br>    ");
-                        }
-                    }
-
-
+                    args = writeArguments (jsonOb);
+                    calleesString = writeInvokes(jsonOb);
 
                 }catch (Exception er) {
                     System.out.println(e);
@@ -112,5 +87,38 @@ class MethodCheck extends AnAction {
             }
         }
 
+    }
+    private JSONObject findObject (JSONArray array, String text){
+        for(int i = 0; i < array.size(); i++){
+            JSONObject jsonOb = (JSONObject) array.get(i);
+            String name = (String) jsonOb.get("name");
+            if(name.equals(text)){
+                return jsonOb;
+            }
+        }
+        return null;
+    }
+    private String writeArguments (JSONObject jsonOb){
+        String args = " ";
+        JSONArray arguments = (JSONArray) jsonOb.get ("arguments");
+        for (int i = 0; i < arguments.size(); i++){
+            args += (arguments.get(i).toString() + "<br>");
+        }
+        return args;
+    }
+
+    private String writeInvokes (JSONObject jsonOb){
+        String calleesString = " ";
+        JSONArray invokes = (JSONArray) jsonOb.get ("invokes");
+        for (int i = 0; i < invokes.size(); i++){
+            JSONObject invoked = (JSONObject) invokes.get(i);
+            calleesString += ("<br>   Line: " + (long) invoked.get ("line"));
+            JSONArray callees = (JSONArray) invoked.get("callees");
+            calleesString += ("<br>   Callees: <br>");
+            for (int j = 0; j < callees.size(); j++){
+                calleesString += ((long)callees.get(j) + "<br>    ");
+            }
+        }
+        return calleesString;
     }
 }
